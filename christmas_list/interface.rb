@@ -9,7 +9,7 @@ gift_list = [] # a simple array
 
 until action == 'quit'
   # 3 -> Get the user Input (add/list/delete/quit) -> a string
-  puts 'What would you like to do? (list/add/mark/delete/quit)'
+  puts 'What would you like to do? (add/list/idea/mark/delete/quit)'
   # 4 -> Store the answer in a variable
   action = gets.chomp
   # 5 -> Execute the action based on the user input
@@ -28,6 +28,15 @@ until action == 'quit'
     # Iterate over the gift list with each_with_index
     list_gifts(gift_list)
     # For each gift, we display it to the user
+  when 'idea'
+    etsy_gifts = idea
+    list_gifts(etsy_gifts)
+    # ask the user which gift idea they wish to add to their own list
+    puts "Which gift would you like to add to your own list?"
+    index = gets.chomp.to_i - 1
+    # Add the right gift to the user list
+    gift_idea = etsy_gifts[index]
+    gift_list << gift_idea
   when 'mark'
     # 7 -> Mark a gift as bought. Add another option on the menu.
     # if the user chooses to mark a gift as bought:
