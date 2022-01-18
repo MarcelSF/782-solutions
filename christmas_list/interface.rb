@@ -1,5 +1,5 @@
 require_relative 'helpers.rb'
-
+require 'pry-byebug'
 # 1 -> Greet the user
 puts "Welcome to the Christmas List!"
 # 2 -> Start the loop and display the four available options to the user (add|list|delete|quit)
@@ -9,7 +9,7 @@ gift_list = [] # a simple array
 
 until action == 'quit'
   # 3 -> Get the user Input (add/list/delete/quit) -> a string
-  puts 'What would you like to do? (list/add/delete/quit)'
+  puts 'What would you like to do? (list/add/mark/delete/quit)'
   # 4 -> Store the answer in a variable
   action = gets.chomp
   # 5 -> Execute the action based on the user input
@@ -20,7 +20,7 @@ until action == 'quit'
     # Store the input in a variable with get.chomp
     add_gift = gets.chomp
     # Push the gift to the gift_list array
-    gift_list << add_gift
+    gift_list << {name: add_gift, bought: false}
     # Tell the user that the gift is now in the gift list
     puts "#{add_gift} has been added to the list"
   when 'list'
@@ -28,6 +28,18 @@ until action == 'quit'
     # Iterate over the gift list with each_with_index
     list_gifts(gift_list)
     # For each gift, we display it to the user
+  when 'mark'
+    # 7 -> Mark a gift as bought. Add another option on the menu.
+    # if the user chooses to mark a gift as bought:
+    # -> Show the list of gifts
+    list_gifts(gift_list)
+    # -> Ask the user for the index of the gift they wish to mark as bought
+    puts "Which gift would you like to mark as bought?"
+    index = gets.chomp.to_i - 1
+    # -> Set the gift to bought/not bought
+    gift_list[index][:bought] = true
+    # -> Display the list again, now that it has been updated
+    list_gifts(gift_list)
   when 'delete'
     puts 'Which item do you wish to delete?'
     # show the user the gifts in the gift list
